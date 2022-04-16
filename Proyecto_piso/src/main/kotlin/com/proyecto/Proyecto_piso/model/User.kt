@@ -13,13 +13,13 @@ data class User(
     var lastName:String,
     @Column(name = "address", nullable = false)
     var address:String,
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     var userName:String,
     @Column(name = "mail", nullable = false)
     var mail:String,
     @Column(name = "password", nullable = false)
     var password:String,
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.REFRESH, CascadeType.MERGE])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.REFRESH, CascadeType.MERGE])
     var listHouses:List<House>? = null,
     @ManyToMany
     @JoinTable(

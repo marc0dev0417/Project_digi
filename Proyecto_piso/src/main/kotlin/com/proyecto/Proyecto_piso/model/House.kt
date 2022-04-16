@@ -12,7 +12,5 @@ data class House(
     var price:Double? = null,
     var description:String? = null,
     var space:Int? = null,
-   @ManyToOne
-   var user:User
 
 )
