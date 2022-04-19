@@ -41,7 +41,7 @@ interface ControllerUserInterface {
 
     @ApiOperation(
         value = "Get user by mail",
-        nickname = "findByMail",
+        nickname = "findByMailLike",
         notes = "find by mail",
         tags = ["User"],
         response = UserDTO::class
@@ -56,10 +56,10 @@ interface ControllerUserInterface {
     @RequestMapping(
         value = ["/users"],
         produces = ["application/json"],
-        params = ["mail"],
-        method = [RequestMethod.GET]
+        method = [RequestMethod.GET],
+        params = ["mail"]
     )
-    fun findByMail(@RequestParam mail:String):ResponseEntity<UserDTO>?
+    fun findByMail(@RequestParam(value = "mail", required = true) mail:String):ResponseEntity<UserDTO>?
 
     @RequestMapping(
         value = ["/users"],

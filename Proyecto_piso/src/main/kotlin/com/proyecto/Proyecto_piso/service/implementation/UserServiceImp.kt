@@ -3,7 +3,6 @@ package com.proyecto.Proyecto_piso.service.implementation
 import com.proyecto.Proyecto_piso.exception.Constants
 import com.proyecto.Proyecto_piso.exception.handlerException.ListEmptyException
 import com.proyecto.Proyecto_piso.exception.handlerException.UserNotFoundException
-import com.proyecto.Proyecto_piso.model.User
 import com.proyecto.Proyecto_piso.model.dto.UserDTO
 import com.proyecto.Proyecto_piso.repository.UserRepository
 import com.proyecto.Proyecto_piso.service.UserServiceInterface
@@ -24,10 +23,10 @@ class UserServiceImp(
     }
 
     override fun findByMail(mail: String): UserDTO? {
-        if(userRepository.findByMail(mail) == null){
-            throw UserNotFoundException(Constants.USER_NOT_FOUND.code, Constants.USER_NOT_FOUND)
-        }
-        return userRepository.findByMail(mail)
+
+        val userWithMail = userRepository.findByMail(mail)
+
+        return DataConverter.userToDTO(userWithMail!!)
     }
 
     override fun saveUser(userDTO: UserDTO): UserDTO? {
