@@ -8,24 +8,24 @@ data class User(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var idUser:Int? = null,
     @Column(name = "firstname", nullable = false)
-    var firstName:String,
+    var firstname:String,
     @Column(name = "lastname", nullable = false)
-    var lastName:String,
+    var lastname:String,
     @Column(name = "address", nullable = false)
     var address:String,
     @Column(name = "username", nullable = false, unique = true)
-    var userName:String,
+    var username:String,
     @Column(name = "mail", nullable = false)
     var mail:String,
     @Column(name = "password", nullable = false)
     var password:String,
-    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.REFRESH, CascadeType.MERGE])
-    var listHouses:List<House>? = null,
-    @ManyToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    var houses:MutableList<House>? = mutableListOf(),
+    @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinTable(
-        name = "user_like_house",
+        name = "houseLikes",
         joinColumns = [JoinColumn(name = "idUser")],
         inverseJoinColumns = [JoinColumn(name = "idHouse")]
     )
-    var listHouseLike:List<House>? = null
+    var houseLikes: MutableList<House>? = mutableListOf()
 )

@@ -2,6 +2,7 @@ package com.proyecto.Proyecto_piso.controller.implementation
 
 import com.proyecto.Proyecto_piso.controller.ControllerHouseInterface
 import com.proyecto.Proyecto_piso.model.House
+import com.proyecto.Proyecto_piso.model.dto.HouseDTO
 import com.proyecto.Proyecto_piso.service.implementation.HouseServiceImp
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -13,11 +14,11 @@ class ControllerHouseImp(
     val houseService: HouseServiceImp
 ) : ControllerHouseInterface{
 
-    override fun getAllHouse(): ResponseEntity<List<House>>? {
+    override fun getAllHouse(): ResponseEntity<List<HouseDTO>>? {
             return ResponseEntity.ok().body(houseService.findAllHouse())
     }
 
-    override fun saveHouse(house: House): ResponseEntity<House>? {
-        return ResponseEntity.ok().body(houseService.saveHouse(house))
+    override fun saveHouse(houseDTO: HouseDTO): ResponseEntity<HouseDTO>? {
+        return ResponseEntity.ok().body(houseService.saveHouse(houseDTO))
     }
 }
