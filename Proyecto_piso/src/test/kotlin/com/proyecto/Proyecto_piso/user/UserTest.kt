@@ -2,6 +2,7 @@ package com.proyecto.Proyecto_piso.user
 
 import com.google.gson.Gson
 import com.proyecto.Proyecto_piso.model.User
+import com.proyecto.Proyecto_piso.model.dto.UserDTO
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -29,16 +30,16 @@ class UserTest {
             .accept(MediaType.APPLICATION_JSON)
             ).andReturn().response.contentAsString
 
-        val listUser:Array<User> = gson.fromJson(result, Array<User>::class.java)
+        val listUser: Array<UserDTO>? = gson.fromJson(result, Array<UserDTO>::class.java)
 
-        Assertions.assertEquals(1, listUser.size)
+        Assertions.assertEquals(1, listUser?.size)
     }
     @Test
     fun saveUser(){
 
-        val user = User(null, "iki97", "Nadal", "calle del mejor", "iki", "iki@gmail.com","123", null, null)
+        val userDTO = UserDTO(null, "iki97", "Nadal", "calle del mejor", "iki", "iki@gmail.com","123", null, null)
 
-        val objectUser:String = gson.toJson(user, User::class.java)
+        val objectUser:String = gson.toJson(userDTO, UserDTO::class.java)
 
         val result = mockMvc.perform(MockMvcRequestBuilders.post("/users")
             .contentType(MediaType.APPLICATION_JSON)
@@ -47,7 +48,7 @@ class UserTest {
 
         val valueUser:User = gson.fromJson(result, User::class.java)
 
-        Assertions.assertEquals("iki", valueUser.userName)
+        Assertions.assertEquals(valueUser.username, userDTO.username)
     }
     @Test
     fun findByMail(){
@@ -57,8 +58,8 @@ class UserTest {
             .param("mail", "iki@gmail.com")).andExpect(status().isOk)
             .andReturn().response.contentAsString
 
-        val user:User = gson.fromJson(result, User::class.java)
+        val user:UserDTO = gson.fromJson(result, UserDTO::class.java)
 
-        Assert.isTrue(user.userName == "iki", "error")
+        Assert.isTrue(user.username == "iki", "error")
     }
 }
