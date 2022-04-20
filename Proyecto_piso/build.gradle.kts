@@ -24,6 +24,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("com.google.code.gson:gson:2.9.0")
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
+	implementation("org.apache.commons:commons-lang3:3.12.0")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

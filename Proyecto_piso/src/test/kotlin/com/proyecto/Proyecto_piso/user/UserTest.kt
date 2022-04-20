@@ -37,7 +37,16 @@ class UserTest {
     @Test
     fun saveUser(){
 
-        val userDTO = UserDTO(null, "iki97", "Nadal", "calle del mejor", "iki", "iki@gmail.com","123", null, null)
+        val userDTO = UserDTO(
+            null,
+            "iki97",
+            "Nadal",
+            "calle del mejor",
+            "iki",
+            "iki@gmail.com",
+            "123",
+            null,
+            null)
 
         val objectUser:String = gson.toJson(userDTO, UserDTO::class.java)
 
