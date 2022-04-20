@@ -15,7 +15,7 @@ data class User(
     var address:String,
     @Column(name = "username", nullable = false, unique = true)
     var username:String,
-    @Column(name = "mail", nullable = false)
+    @Column(name = "mail", nullable = false, unique = true)
     var mail:String,
     @Column(name = "password", nullable = false)
     var password:String,
