@@ -1,8 +1,10 @@
 package com.proyecto.Proyecto_piso.util
 
 import com.proyecto.Proyecto_piso.model.House
+import com.proyecto.Proyecto_piso.model.Image
 import com.proyecto.Proyecto_piso.model.User
 import com.proyecto.Proyecto_piso.model.dto.HouseDTO
+import com.proyecto.Proyecto_piso.model.dto.ImageDTO
 import com.proyecto.Proyecto_piso.model.dto.UserDTO
 
 class DataConverter {
@@ -16,8 +18,8 @@ class DataConverter {
                 username = user.username,
                 mail = user.mail,
                 password = user.password,
-                houses = user.houses.let { it?.map { house -> houseToDto(house) } }?.toMutableList(),
-                houseLikes = user.houseLikes.let { it?.map { houseLikes -> houseToDto(houseLikes)} }?.toMutableList()
+                houses = user.houses.let { it?.map { house -> houseToDTO(house) } }?.toMutableList(),
+                houseLikes = user.houseLikes.let { it?.map { houseLikes -> houseToDTO(houseLikes) } }?.toMutableList()
             )
         }
         fun userFromDTO(userDTO: UserDTO): User{
@@ -33,14 +35,15 @@ class DataConverter {
                 houseLikes = userDTO.houseLikes.let { it?.map { houseDTO -> houseFromDTO(houseDTO) } }?.toMutableList()
             )
         }
-        fun houseToDto(house: House): HouseDTO{
+        fun houseToDTO(house: House): HouseDTO{
             return HouseDTO(
                 idHouse = house.idHouse,
                 address = house.address,
                 region = house.region,
                 price = house.price,
                 description = house.description,
-                space = house.space
+                space = house.space,
+                images = house.images.let { it?.map { image -> imageToDTO(image) } }?.toMutableList()
             )
         }
         fun houseFromDTO(houseDTO: HouseDTO): House{
@@ -50,9 +53,21 @@ class DataConverter {
                 region = houseDTO.region,
                 price = houseDTO.price,
                 description = houseDTO.description,
-                space = houseDTO.space
+                space = houseDTO.space,
+                images = houseDTO.images.let { it?.map { imageDTO -> imageFromDTO(imageDTO) } }?.toMutableList()
             )
         }
-
+        fun imageToDTO(image: Image): ImageDTO{
+            return ImageDTO(
+                idImage = image.idImage,
+                picture = image.picture
+            )
+        }
+        fun imageFromDTO(imageDTO: ImageDTO): Image{
+            return Image(
+                idImage = imageDTO.idImage,
+                picture = imageDTO.picture
+            )
+        }
     }
 }

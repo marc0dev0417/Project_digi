@@ -13,5 +13,7 @@ data class HouseDTO(
 
     @JsonProperty("description") var description: String? = null,
 
-    @JsonProperty("space") var space: Int? = null
+    @JsonProperty("space") var space: Int? = null,
+
+    @JsonProperty("images") var images: MutableList<ImageDTO>? = mutableListOf()
 )

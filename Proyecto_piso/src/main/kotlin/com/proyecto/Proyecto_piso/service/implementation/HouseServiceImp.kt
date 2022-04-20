@@ -19,7 +19,7 @@ class HouseServiceImp(
         if(houseRepository.findAll().isEmpty()){
           throw ListEmptyException(Constants.LIST_EMPTY.code, Constants.LIST_EMPTY)
         }
-            return houseRepository.findAll().map { DataConverter.houseToDto(it) }
+            return houseRepository.findAll().map { DataConverter.houseToDTO(it) }
     }
 
     override fun saveHouse(houseDTO: HouseDTO): HouseDTO? {
@@ -27,6 +27,6 @@ class HouseServiceImp(
         val itemToSave = DataConverter.houseFromDTO(houseDTO)
         val itemDb = houseRepository.save(itemToSave)
 
-        return DataConverter.houseToDto(itemDb)
+        return DataConverter.houseToDTO(itemDb)
     }
 }

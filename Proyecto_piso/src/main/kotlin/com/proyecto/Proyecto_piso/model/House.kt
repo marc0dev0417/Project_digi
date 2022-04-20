@@ -12,5 +12,7 @@ data class House(
     var price:Double? = null,
     var description:String? = null,
     var space:Int? = null,
+    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    var images: MutableList<Image>? = mutableListOf()
 
 )
