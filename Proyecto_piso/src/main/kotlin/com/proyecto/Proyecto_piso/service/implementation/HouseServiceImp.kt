@@ -22,9 +22,9 @@ class HouseServiceImp(
             return houseRepository.findAll().map { DataConverter.houseToDto(it) }
     }
 
-    override fun saveHouse(house: HouseDTO): HouseDTO? {
+    override fun saveHouse(houseDTO: HouseDTO): HouseDTO? {
 
-        val itemToSave = DataConverter.houseFromDTO(house)
+        val itemToSave = DataConverter.houseFromDTO(houseDTO)
         val itemDb = houseRepository.save(itemToSave)
 
         return DataConverter.houseToDto(itemDb)

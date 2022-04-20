@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service
 interface UserServiceInterface {
     fun findAllUser():List<UserDTO>?
     fun findByMail(mail:String):UserDTO?
-    fun saveUser(user:UserDTO):UserDTO?
-    fun updateUser(id:Int, user:UserDTO): UserDTO?
+    fun saveUser(userDTO: UserDTO):UserDTO?
+    fun updateUser(id:Int, userDTO: UserDTO): UserDTO?
 }
