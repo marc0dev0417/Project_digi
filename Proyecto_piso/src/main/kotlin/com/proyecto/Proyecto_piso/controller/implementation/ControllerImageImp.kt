@@ -13,4 +13,8 @@ class ControllerImageImp(
     override fun saveImage(imageDto: ImageDTO): ResponseEntity<ImageDTO> {
         return ResponseEntity.ok().body(imageService.saveImage(imageDto))
     }
+
+    override fun getImages(): ResponseEntity<List<ImageDTO>> {
+        return ResponseEntity.ok().body(imageService.findAll())
+    }
 }

@@ -33,7 +33,28 @@ interface ControllerImageInterface {
         ApiResponse(code = 401, message = "Unauthorized", response = HandleResponse::class),
         ApiResponse(code = 403, message = "Forbidden", response = HandleResponse::class),
         ApiResponse(code = 500, message = "Server error", response = HandleResponse::class)
-    ]
-    )
+    ])
     fun saveImage(imageDto:ImageDTO): ResponseEntity<ImageDTO>
+
+    @RequestMapping(
+        value = ["/images"],
+        produces = ["application/json"],
+        consumes = ["application/json"],
+        method = [RequestMethod.GET]
+    )
+    @ApiOperation(
+        value = "get all images",
+        nickname = "getImages",
+        notes = "get images",
+        tags = ["Image"],
+        response = ImageDTO::class
+    )
+    @ApiResponses(value = [
+        ApiResponse(code = 201, message = "User", response = ImageDTO::class),
+        ApiResponse(code = 400, message = "Bad Request", response = HandleResponse::class),
+        ApiResponse(code = 401, message = "Unauthorized", response = HandleResponse::class),
+        ApiResponse(code = 403, message = "Forbidden", response = HandleResponse::class),
+        ApiResponse(code = 500, message = "Server error", response = HandleResponse::class)
+    ])
+    fun getImages():ResponseEntity<List<ImageDTO>>
 }

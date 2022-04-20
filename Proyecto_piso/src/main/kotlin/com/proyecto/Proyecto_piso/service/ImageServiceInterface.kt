@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service
 @Service
 interface ImageServiceInterface {
     fun saveImage(imageDTO: ImageDTO):ImageDTO?
+    fun findAll():List<ImageDTO>?
 }

@@ -1,5 +1,7 @@
 package com.proyecto.Proyecto_piso.service.implementation
 
+import com.proyecto.Proyecto_piso.exception.Constants
+import com.proyecto.Proyecto_piso.exception.handlerException.ListEmptyException
 import com.proyecto.Proyecto_piso.model.dto.ImageDTO
 import com.proyecto.Proyecto_piso.repository.ImageRepository
 import com.proyecto.Proyecto_piso.service.ImageServiceInterface
@@ -17,5 +19,13 @@ class ImageServiceImp(
         val itemDb = imageRepository.save(itemToSave)
 
         return DataConverter.imageToDTO(itemDb)
+    }
+
+    override fun findAll(): List<ImageDTO>? {
+
+        if(imageRepository.findAll().isEmpty()){
+            throw ListEmptyException(Constants.LIST_EMPTY.code, Constants.LIST_EMPTY)
+        }
+        return imageRepository.findAll().map { DataConverter.imageToDTO(it) }
     }
 }
