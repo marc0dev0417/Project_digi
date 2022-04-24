@@ -2,6 +2,7 @@ package com.proyecto.Proyecto_piso.controller.implementation
 
 import com.proyecto.Proyecto_piso.controller.ControllerUserInterface
 import com.proyecto.Proyecto_piso.model.User
+import com.proyecto.Proyecto_piso.model.dto.HouseDTO
 import com.proyecto.Proyecto_piso.model.dto.UserDTO
 import com.proyecto.Proyecto_piso.service.implementation.UserServiceImp
 import org.springframework.http.ResponseEntity
@@ -24,7 +25,7 @@ class ControllerUserImp(
         return ResponseEntity.ok().body(userServiceImp.saveUser(userDTO))
     }
 
-    override fun update(id: Int, userDTO: UserDTO): ResponseEntity<UserDTO>? {
-        return ResponseEntity.ok().body(userServiceImp.updateUser(id, userDTO))
+    override fun updateToHouse(id: Int, houseDTO: HouseDTO): ResponseEntity<UserDTO>? {
+        return ResponseEntity.ok().body(userServiceImp.updateUserInHouse(id, houseDTO))
     }
 }

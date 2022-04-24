@@ -3,6 +3,7 @@ package com.proyecto.Proyecto_piso.service.implementation
 import com.proyecto.Proyecto_piso.exception.Constants
 import com.proyecto.Proyecto_piso.exception.handlerException.ListEmptyException
 import com.proyecto.Proyecto_piso.exception.handlerException.UserNotFoundException
+import com.proyecto.Proyecto_piso.model.dto.HouseDTO
 import com.proyecto.Proyecto_piso.model.dto.UserDTO
 import com.proyecto.Proyecto_piso.repository.UserRepository
 import com.proyecto.Proyecto_piso.service.UserServiceInterface
@@ -38,11 +39,14 @@ class UserServiceImp(
     }
 
     @Throws(Exception::class)
-    override fun updateUser(id: Int, userDTO: UserDTO): UserDTO? {
+    override fun updateUserInHouse(id: Int, houseDTO: HouseDTO): UserDTO? {
 
         return if(userRepository.existsById(id)){
-            val itemToSave = DataConverter.userFromDTO(userDTO)
-            val itemDb = userRepository.save(itemToSave)
+            val user = userRepository.getById(id)
+
+            user.houses?.add(DataConverter.houseFromDTO(houseDTO))
+
+            val itemDb = userRepository.save(user)
 
             DataConverter.userToDTO(itemDb)
         }else{

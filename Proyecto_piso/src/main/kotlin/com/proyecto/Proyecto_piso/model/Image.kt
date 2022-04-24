@@ -10,6 +10,7 @@ data class Image(
     var idImage: Int? = null,
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "picture")
     var picture: ByteArray? = null
 ) {

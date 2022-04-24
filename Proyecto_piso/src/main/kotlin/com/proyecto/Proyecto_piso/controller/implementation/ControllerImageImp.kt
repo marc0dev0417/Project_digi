@@ -5,7 +5,9 @@ import com.proyecto.Proyecto_piso.model.dto.ImageDTO
 import com.proyecto.Proyecto_piso.service.implementation.ImageServiceImp
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Controller
 
+@Controller
 class ControllerImageImp(
     @Autowired
     val imageService: ImageServiceImp

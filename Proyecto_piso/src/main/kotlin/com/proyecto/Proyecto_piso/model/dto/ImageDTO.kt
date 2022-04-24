@@ -1,10 +1,12 @@
 package com.proyecto.Proyecto_piso.model.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import javax.persistence.Lob
 
 data class ImageDTO(
     @JsonProperty("idImage") var idImage: Int? = null,
 
+    @Lob
     @JsonProperty("picture") var picture: ByteArray? = null
 ) {
     override fun equals(other: Any?): Boolean {

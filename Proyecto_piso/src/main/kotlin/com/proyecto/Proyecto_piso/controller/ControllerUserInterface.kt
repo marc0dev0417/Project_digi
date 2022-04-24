@@ -2,6 +2,7 @@ package com.proyecto.Proyecto_piso.controller
 
 import com.proyecto.Proyecto_piso.exception.HandleResponse
 import com.proyecto.Proyecto_piso.model.User
+import com.proyecto.Proyecto_piso.model.dto.HouseDTO
 import com.proyecto.Proyecto_piso.model.dto.UserDTO
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
@@ -105,5 +106,5 @@ interface ControllerUserInterface {
         consumes = ["application/json"],
         method = [RequestMethod.PUT]
     )
-    fun update(@PathVariable id:Int, @RequestBody userDTO:UserDTO): ResponseEntity<UserDTO>?
+    fun updateToHouse(@PathVariable id:Int, @RequestBody houseDTO: HouseDTO): ResponseEntity<UserDTO>?
 }

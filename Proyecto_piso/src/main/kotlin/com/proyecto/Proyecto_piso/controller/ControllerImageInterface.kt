@@ -2,12 +2,12 @@ package com.proyecto.Proyecto_piso.controller
 
 import com.proyecto.Proyecto_piso.exception.HandleResponse
 import com.proyecto.Proyecto_piso.model.dto.ImageDTO
-import com.proyecto.Proyecto_piso.model.dto.UserDTO
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 
@@ -34,12 +34,11 @@ interface ControllerImageInterface {
         ApiResponse(code = 403, message = "Forbidden", response = HandleResponse::class),
         ApiResponse(code = 500, message = "Server error", response = HandleResponse::class)
     ])
-    fun saveImage(imageDto:ImageDTO): ResponseEntity<ImageDTO>
+    fun saveImage(@RequestBody imageDto:ImageDTO): ResponseEntity<ImageDTO>
 
     @RequestMapping(
         value = ["/images"],
         produces = ["application/json"],
-        consumes = ["application/json"],
         method = [RequestMethod.GET]
     )
     @ApiOperation(
