@@ -60,13 +60,13 @@ class DataConverter {
         fun imageToDTO(image: Image): ImageDTO{
             return ImageDTO(
                 idImage = image.idImage,
-                picture = image.picture
+                url = image.url
             )
         }
         fun imageFromDTO(imageDTO: ImageDTO): Image{
             return Image(
                 idImage = imageDTO.idImage,
-                picture = imageDTO.picture
+                url = imageDTO.url
             )
         }
     }
