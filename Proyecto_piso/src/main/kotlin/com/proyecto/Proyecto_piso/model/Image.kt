@@ -9,7 +9,7 @@ data class Image(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var idImage: Int? = null,
 
-   @Column(name = "url")
+   @Column(name = "url", unique = true)
    var url: String? = null
 )
 
