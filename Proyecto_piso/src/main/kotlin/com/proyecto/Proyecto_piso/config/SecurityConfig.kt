@@ -43,7 +43,7 @@ class SecurityConfig(private val jwtUserDetailsService: UserDetailsService, jwtR
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity?) {
-        http?.csrf()?.disable()?.authorizeRequests()?.antMatchers("/register")
+        http?.csrf()?.disable()?.authorizeRequests()?.antMatchers("/register", "/login")
             ?.permitAll()?.anyRequest()?.authenticated()?.and()?.exceptionHandling()
             ?.authenticationEntryPoint{ request: HttpServletRequest?, response: HttpServletResponse, authException: AuthenticationException? ->
 

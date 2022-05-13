@@ -35,9 +35,9 @@ interface ControllerUserInterface {
     fun findAllUser():ResponseEntity<List<UserDTO>>?
 
     @ApiOperation(
-        value = "Get user by mail",
+        value = "Get user by user",
         nickname = "findByMailLike",
-        notes = "find by mail",
+        notes = "find by user",
         tags = ["User"],
         response = UserDTO::class
     )
@@ -49,12 +49,12 @@ interface ControllerUserInterface {
         ApiResponse(code = 500, message = "Server error", response = HandleResponse::class)
     ])
     @RequestMapping(
-        value = ["/users"],
+        value = ["/login"],
         produces = ["application/json"],
         method = [RequestMethod.GET],
-        params = ["mail"]
+        params = ["username", "password"]
     )
-    fun findByMail(@RequestParam(value = "mail", required = true) mail:String):ResponseEntity<UserDTO>?
+    fun login(@RequestParam(value = "username", required = true) username:String, @RequestParam(value = "password", required = true) password: String):ResponseEntity<*>?
 
     @RequestMapping(
         value = ["/register"],
@@ -67,7 +67,7 @@ interface ControllerUserInterface {
         nickname = "saveUser",
         notes = "save a user",
         tags = ["User"],
-        response = UserDTO::class
+
     )
     @ApiResponses(value = [
         ApiResponse(code = 201, message = "User", response = UserDTO::class),
@@ -77,7 +77,7 @@ interface ControllerUserInterface {
         ApiResponse(code = 500, message = "Server error", response = HandleResponse::class)
     ]
     )
-    fun saveUser(@RequestBody userDTO: UserDTO):ResponseEntity<*>?
+    fun saveUser(@RequestBody userDTO: UserDTO):ResponseEntity<UserDTO>?
 
     @ApiOperation(
         value = "update a user",
