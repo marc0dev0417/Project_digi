@@ -23,6 +23,13 @@ class UserServiceImp(
         return userRepository.findAll().map { DataConverter.userToDTO(it) }
     }
 
+    override fun findUserByUsername(username: String): UserDTO {
+
+        val user = userRepository.findUserByUsername(username)
+
+        return DataConverter.userToDTO(user)
+    }
+
     override fun findByMail(mail: String): UserDTO? {
 
         val userWithMail = userRepository.findByMail(mail)

@@ -8,17 +8,17 @@ data class User(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var idUser:Int? = null,
     @Column(name = "firstname", nullable = false)
-    var firstname:String,
+    var firstname:String? = null,
     @Column(name = "lastname", nullable = false)
-    var lastname:String,
+    var lastname:String? = null,
     @Column(name = "address", nullable = false)
-    var address:String,
+    var address:String? = null,
     @Column(name = "username", nullable = false, unique = true)
-    var username:String,
+    var username:String? = null,
     @Column(name = "mail", nullable = false, unique = true)
-    var mail:String,
+    var mail:String? = null,
     @Column(name = "password", nullable = false)
-    var password:String,
+    var password:String? = null,
     @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var houses:MutableList<House>? = mutableListOf(),
     @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
