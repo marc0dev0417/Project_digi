@@ -46,8 +46,7 @@ class UserServiceImp(
 
         val responseMap: MutableMap<String, Any> = mutableMapOf()
         val user = userRepository.findUserByUsername(username)
-        println(password)
-        println(user.toString())
+
         val valid = BCryptPasswordEncoder().matches(password,  user.password)
         try {
             val auth: Authentication =
