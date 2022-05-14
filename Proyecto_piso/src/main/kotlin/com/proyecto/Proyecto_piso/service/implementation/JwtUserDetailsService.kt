@@ -11,6 +11,7 @@ import com.proyecto.Proyecto_piso.model.User as UserApi
 class JwtUserDetailsService(
     val userRepository: UserRepository
 ) : UserDetailsService {
+
     override fun loadUserByUsername(username: String): UserDetails {
         val user: UserApi = userRepository.findUserByUsername(username)
         return User(user.username, user.password, listOf())

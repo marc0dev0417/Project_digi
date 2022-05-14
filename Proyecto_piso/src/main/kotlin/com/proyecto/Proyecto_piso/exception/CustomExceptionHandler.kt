@@ -1,8 +1,5 @@
 package com.proyecto.Proyecto_piso.exception
 
-
-
-
 import com.proyecto.Proyecto_piso.exception.handlerException.NotFoundException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -13,7 +10,6 @@ import org.springframework.web.context.request.WebRequest
 import java.io.IOException
 import java.io.PrintWriter
 import java.io.StringWriter
-import java.net.http.HttpTimeoutException
 import javax.servlet.http.HttpServletResponse
 
 @ControllerAdvice

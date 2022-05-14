@@ -2,7 +2,6 @@ package com.proyecto.Proyecto_piso.service.implementation
 
 import com.proyecto.Proyecto_piso.exception.Constants
 import com.proyecto.Proyecto_piso.exception.handlerException.ListEmptyException
-import com.proyecto.Proyecto_piso.model.House
 import com.proyecto.Proyecto_piso.model.dto.HouseDTO
 import com.proyecto.Proyecto_piso.repository.HouseRepository
 import com.proyecto.Proyecto_piso.service.HouseServiceInterface
@@ -15,6 +14,7 @@ class HouseServiceImp(
     @Autowired
     val houseRepository: HouseRepository
 ): HouseServiceInterface {
+
     override fun findAllHouse(): List<HouseDTO>? {
         if(houseRepository.findAll().isEmpty()){
           throw ListEmptyException(Constants.LIST_EMPTY.code, Constants.LIST_EMPTY)

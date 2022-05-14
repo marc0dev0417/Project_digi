@@ -12,6 +12,7 @@ class ControllerImageImp(
     @Autowired
     val imageService: ImageServiceImp
 ) : ControllerImageInterface{
+
     override fun saveImage(imageDto: ImageDTO): ResponseEntity<ImageDTO> {
         return ResponseEntity.ok().body(imageService.saveImage(imageDto))
     }

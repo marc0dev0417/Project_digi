@@ -35,9 +35,9 @@ interface ControllerUserInterface {
     fun findAllUser():ResponseEntity<List<UserDTO>>?
 
     @ApiOperation(
-        value = "Get user by user",
-        nickname = "findByMailLike",
-        notes = "find by user",
+        value = "Get user by username and password",
+        nickname = "findUserLogin",
+        notes = "find by username",
         tags = ["User"],
         response = UserDTO::class
     )
