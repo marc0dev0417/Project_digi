@@ -28,7 +28,7 @@ class UserServiceImp(
 ) : UserServiceInterface {
 
     override fun findAllUser(): List<UserDTO>? {
-        if(userRepository.findAll().isEmpty()){
+        if (userRepository.findAll().isEmpty()) {
             throw ListEmptyException(Constants.LIST_EMPTY.code, Constants.LIST_EMPTY)
         }
 
@@ -47,11 +47,10 @@ class UserServiceImp(
         val responseMap: MutableMap<String, Any> = mutableMapOf()
         val user = userRepository.findUserByUsername(username)
 
-        val valid = BCryptPasswordEncoder().matches(password,  user.password)
         try {
             val auth: Authentication =
-                    authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username,
-                      password))
+                authenticationManager.authenticate(UsernamePasswordAuthenticationToken(username,
+                    password))
 
             if (auth.isAuthenticated) {
 
@@ -108,7 +107,7 @@ class UserServiceImp(
     @Throws(Exception::class)
     override fun updateUserInHouse(id: Int, houseDTO: HouseDTO): UserDTO? {
 
-        return if(userRepository.existsById(id)){
+        return if (userRepository.existsById(id)) {
             val user = userRepository.getById(id)
 
             user.houses?.add(DataConverter.houseFromDTO(houseDTO))
@@ -116,8 +115,64 @@ class UserServiceImp(
             val itemDb = userRepository.save(user)
 
             DataConverter.userToDTO(itemDb)
+        } else {
+            throw UserNotFoundException(Constants.USER_NOT_FOUND.code, Constants.USER_NOT_FOUND)
+        }
+    }
+
+    @Throws(Exception::class)
+    override fun updateUserById(id: Int, userDTO: UserDTO): ResponseEntity<*>? {
+        val responseMap: MutableMap<String, Any> = mutableMapOf()
+
+        if (userRepository.existsById(id)) {
+            val user = userRepository.getById(id)
+
+            try {
+                user.username = userDTO.username
+                user.mail = userDTO.mail
+                user.address = userDTO.address
+                user.password = BCryptPasswordEncoder().encode(userDTO.password)
+
+               val itemSaved = userRepository.save(user)
+
+                val authentication: Authentication =
+                    authenticationManager.authenticate(UsernamePasswordAuthenticationToken(userDTO.username,
+                        userDTO.password))
+
+                if (authentication.isAuthenticated) {
+
+                    val userDetails: UserDetails = userDetailsService.loadUserByUsername(userDTO.username!!)
+                    val token: String = jwtTokenUtil.generateToken(userDetails) ?: ""
+                    responseMap["error"] = false
+                    responseMap["message"] = "Logged In"
+                    responseMap["token"] = token
+                    responseMap["token_expired"] = jwtTokenUtil.isTokenExpired(token).toString()
+                    responseMap["expired_date"] = jwtTokenUtil.getExpirationDateFromToken(token).toString()
+                    responseMap["user"] = user
+                    return ResponseEntity.ok(responseMap)
+                } else {
+                    responseMap["error"] = true
+                    responseMap["message"] = "Invalid Credentials"
+                    return ResponseEntity.status(401).body(responseMap)
+                }
+            } catch (e: DisabledException) {
+                e.printStackTrace();
+                responseMap["error"] = true
+                responseMap["message"] = "User is disabled"
+                return ResponseEntity.status(500).body(responseMap);
+            }catch (e: BadCredentialsException) {
+                responseMap["error"] = true
+                responseMap["message"] = "Invalid Credentials"
+                return ResponseEntity.status(401).body(responseMap);
+            } catch (e: Exception) {
+                e.printStackTrace();
+                responseMap["error"] = true
+                responseMap["message"] = "Something went wrong";
+                return ResponseEntity.status(500).body(responseMap);
+            }
         }else{
             throw UserNotFoundException(Constants.USER_NOT_FOUND.code, Constants.USER_NOT_FOUND)
         }
     }
 }
+

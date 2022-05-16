@@ -25,6 +25,10 @@ class ControllerUserImp(
         return ResponseEntity.ok().body(userServiceImp.saveUser(userDTO))
     }
 
+    override fun updateUserById(id: Int, userDTO: UserDTO): ResponseEntity<*>? {
+        return ResponseEntity.ok().body(userServiceImp.updateUserById(id, userDTO))
+    }
+
     override fun updateToHouse(id: Int, houseDTO: HouseDTO): ResponseEntity<UserDTO>? {
         return ResponseEntity.ok().body(userServiceImp.updateUserInHouse(id, houseDTO))
     }

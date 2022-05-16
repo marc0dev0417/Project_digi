@@ -78,6 +78,27 @@ interface ControllerUserInterface {
     ]
     )
     fun saveUser(@RequestBody userDTO: UserDTO):ResponseEntity<UserDTO>?
+    @RequestMapping(
+        value = ["/users/update/{id}"],
+        produces = ["application/json"],
+        consumes = ["application/json"],
+        method = [RequestMethod.PUT]
+    )
+    @ApiOperation(
+        value = "update user by id",
+        nickname = "updateUser",
+        notes = "update a user",
+        tags = ["User"]
+        )
+    @ApiResponses(value = [
+        ApiResponse(code = 201, message = "User", response = UserDTO::class),
+        ApiResponse(code = 400, message = "Bad Request", response = HandleResponse::class),
+        ApiResponse(code = 401, message = "Unauthorized", response = HandleResponse::class),
+        ApiResponse(code = 403, message = "Forbidden", response = HandleResponse::class),
+        ApiResponse(code = 500, message = "Server error", response = HandleResponse::class)
+    ]
+    )
+    fun updateUserById(@PathVariable id: Int, @RequestBody userDTO: UserDTO): ResponseEntity<*>?
 
     @ApiOperation(
         value = "update a user",
