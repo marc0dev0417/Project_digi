@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import java.text.DateFormat
 
 @Service
 class UserServiceImp(
@@ -46,6 +47,7 @@ class UserServiceImp(
 
         val responseMap: MutableMap<String, Any> = mutableMapOf()
         val user = userRepository.findUserByUsername(username)
+        val dataFormatMedium = DateFormat.getDateInstance(DateFormat.MEDIUM)
 
         try {
             val auth: Authentication =
@@ -60,7 +62,7 @@ class UserServiceImp(
                 responseMap["message"] = "Logged In"
                 responseMap["token"] = token
                 responseMap["token_expired"] = jwtTokenUtil.isTokenExpired(token).toString()
-                responseMap["expired_date"] = jwtTokenUtil.getExpirationDateFromToken(token).toString()
+                responseMap["expired_date"] = dataFormatMedium.format(jwtTokenUtil.getExpirationDateFromToken(token)).toString()
                 responseMap["user"] = user
                 return ResponseEntity.ok(responseMap)
 
@@ -123,6 +125,7 @@ class UserServiceImp(
     @Throws(Exception::class)
     override fun updateUserById(id: Int, userDTO: UserDTO): ResponseEntity<*>? {
         val responseMap: MutableMap<String, Any> = mutableMapOf()
+        val dataFormatMedium = DateFormat.getDateInstance(DateFormat.MEDIUM)
 
         if (userRepository.existsById(id)) {
             val user = userRepository.getById(id)
@@ -147,7 +150,7 @@ class UserServiceImp(
                     responseMap["message"] = "Logged In"
                     responseMap["token"] = token
                     responseMap["token_expired"] = jwtTokenUtil.isTokenExpired(token).toString()
-                    responseMap["expired_date"] = jwtTokenUtil.getExpirationDateFromToken(token).toString()
+                    responseMap["expired_date"] = dataFormatMedium.format(jwtTokenUtil.getExpirationDateFromToken(token)).toString()
                     responseMap["user"] = user
                     return ResponseEntity.ok(responseMap)
                 } else {

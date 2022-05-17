@@ -12,7 +12,7 @@ import java.util.*
 
 @Component
 class JwtTokenUtil : Serializable{
-    val JWT_TOKEN_VALIDITY = (360 * 60 * 60).toLong()
+    val JWT_TOKEN_VALIDITY = (24 * 60 * 60).toLong()
 
     var key: Key = Keys.secretKeyFor(SignatureAlgorithm.HS256)
 
