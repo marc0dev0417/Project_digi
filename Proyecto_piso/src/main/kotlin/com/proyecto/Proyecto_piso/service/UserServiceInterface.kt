@@ -14,4 +14,5 @@ interface UserServiceInterface {
     fun updateUserInHouse(id:Int, houseDTO: HouseDTO): UserDTO?
     fun updateUserById(id: Int, userDTO: UserDTO): ResponseEntity<*>?
     fun getUser(id: Int): UserDTO?
+    fun deleteUserHouse(idUser: Int, idHouse: Int): UserDTO?
 }

@@ -37,4 +37,7 @@ class ControllerUserImp(
         return ResponseEntity.ok().body(userServiceImp.getUser(id))
     }
 
+    override fun deleteHouseUser(idUser: Int, idHouse: Int): ResponseEntity<UserDTO>? {
+        return ResponseEntity.ok().body(userServiceImp.deleteUserHouse(idUser, idHouse))
+    }
 }

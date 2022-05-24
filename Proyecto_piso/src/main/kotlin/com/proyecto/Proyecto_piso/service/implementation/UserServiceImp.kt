@@ -5,6 +5,7 @@ import com.proyecto.Proyecto_piso.exception.handlerException.ListEmptyException
 import com.proyecto.Proyecto_piso.exception.handlerException.UserNotFoundException
 import com.proyecto.Proyecto_piso.model.dto.HouseDTO
 import com.proyecto.Proyecto_piso.model.dto.UserDTO
+import com.proyecto.Proyecto_piso.repository.HouseRepository
 import com.proyecto.Proyecto_piso.repository.UserRepository
 import com.proyecto.Proyecto_piso.security.JwtTokenUtil
 import com.proyecto.Proyecto_piso.service.UserServiceInterface
@@ -23,6 +24,7 @@ import java.text.DateFormat
 @Service
 class UserServiceImp(
     var userRepository: UserRepository,
+    var houseRepository: HouseRepository,
     val authenticationManager: AuthenticationManager,
     val userDetailsService: JwtUserDetailsService,
     val jwtTokenUtil: JwtTokenUtil
@@ -185,5 +187,22 @@ class UserServiceImp(
         }
         throw UserNotFoundException(Constants.USER_NOT_FOUND.code, Constants.USER_NOT_FOUND)
     }
+
+    override fun deleteUserHouse(idUser: Int, idHouse: Int): UserDTO? {
+        if(userRepository.existsById(idUser)){
+            val userItem = userRepository.getById(idUser)
+
+            userItem.houses?.filter { house -> house.idHouse == idHouse}?.map {
+                    userItem.houses!!.remove(it)
+            }
+            houseRepository.deleteById(idHouse)
+
+           return DataConverter.userToDTO(userItem)
+
+        }else{
+            throw UserNotFoundException(Constants.USER_NOT_FOUND.code, Constants.USER_NOT_FOUND)
+        }
+    }
+
 }
 
