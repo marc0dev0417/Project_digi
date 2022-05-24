@@ -177,5 +177,13 @@ class UserServiceImp(
             throw UserNotFoundException(Constants.USER_NOT_FOUND.code, Constants.USER_NOT_FOUND)
         }
     }
+
+    override fun getUser(id: Int): UserDTO? {
+        if(userRepository.existsById(id)){
+          val userItem = userRepository.getById(id)
+            return DataConverter.userToDTO(userItem)
+        }
+        throw UserNotFoundException(Constants.USER_NOT_FOUND.code, Constants.USER_NOT_FOUND)
+    }
 }
 

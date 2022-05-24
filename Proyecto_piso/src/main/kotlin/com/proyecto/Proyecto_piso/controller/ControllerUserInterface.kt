@@ -122,4 +122,25 @@ interface ControllerUserInterface {
         method = [RequestMethod.PUT]
     )
     fun updateToHouse(@PathVariable id:Int, @RequestBody houseDTO: HouseDTO): ResponseEntity<UserDTO>?
+    @ApiOperation(
+        value = "get a user",
+        nickname = "getUser",
+        notes = "get a user",
+        tags = ["User"],
+        response = UserDTO::class
+    )
+    @ApiResponses(value = [
+        ApiResponse(code = 201, message = "User", response = UserDTO::class),
+        ApiResponse(code = 400, message = "Bad Request", response = HandleResponse::class),
+        ApiResponse(code = 401, message = "Unauthorized", response = HandleResponse::class),
+        ApiResponse(code = 403, message = "Forbidden", response = HandleResponse::class),
+        ApiResponse(code = 500, message = "Server error", response = HandleResponse::class)
+    ]
+    )
+    @RequestMapping(
+        value = ["/users/{id}"],
+        produces = ["application/json"],
+        method = [RequestMethod.GET]
+    )
+    fun getUserByID(@PathVariable id: Int): ResponseEntity<UserDTO>?
 }

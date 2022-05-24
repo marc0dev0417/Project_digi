@@ -33,4 +33,8 @@ class ControllerUserImp(
         return ResponseEntity.ok().body(userServiceImp.updateUserInHouse(id, houseDTO))
     }
 
+    override fun getUserByID(id: Int): ResponseEntity<UserDTO>? {
+        return ResponseEntity.ok().body(userServiceImp.getUser(id))
+    }
+
 }
