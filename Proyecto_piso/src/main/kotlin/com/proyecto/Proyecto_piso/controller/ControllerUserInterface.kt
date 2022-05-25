@@ -165,4 +165,26 @@ interface ControllerUserInterface {
         params = ["idUser", "idHouse"]
     )
     fun deleteHouseUser(@RequestParam(value = "idUser", required = true) idUser: Int, @RequestParam(value = "idHouse", required = true) idHouse: Int): ResponseEntity<UserDTO>?
+    @ApiOperation(
+        value = "delete a user",
+        nickname = "deleteUser",
+        notes = "delete a user",
+        tags = ["User"],
+        response = UserDTO::class
+    )
+    @ApiResponses(value = [
+        ApiResponse(code = 201, message = "User", response = UserDTO::class),
+        ApiResponse(code = 400, message = "Bad Request", response = HandleResponse::class),
+        ApiResponse(code = 401, message = "Unauthorized", response = HandleResponse::class),
+        ApiResponse(code = 403, message = "Forbidden", response = HandleResponse::class),
+        ApiResponse(code = 500, message = "Server error", response = HandleResponse::class)
+    ]
+    )
+    @RequestMapping(
+        value = ["/users/delete/user"],
+        produces = ["application/json"],
+        method = [RequestMethod.DELETE],
+        params = ["idUser"]
+    )
+    fun deleteUser(@RequestParam(value = "idUser", required = true) id: Int): ResponseEntity<UserDTO>?
 }

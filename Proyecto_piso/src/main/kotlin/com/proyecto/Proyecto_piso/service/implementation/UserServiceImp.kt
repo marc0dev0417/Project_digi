@@ -204,5 +204,17 @@ class UserServiceImp(
         }
     }
 
+    override fun deleteUser(id: Int): UserDTO? {
+        if(userRepository.existsById(id)){
+            val userItem = userRepository.getById(id)
+
+            userRepository.deleteById(id)
+
+            return DataConverter.userToDTO(userItem)
+        }else{
+            throw UserNotFoundException(Constants.USER_NOT_FOUND.code, Constants.USER_NOT_FOUND)
+        }
+    }
+
 }
 
