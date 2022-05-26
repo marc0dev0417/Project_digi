@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.6.10"
 	kotlin("plugin.spring") version "1.6.10"
 	kotlin("plugin.jpa") version "1.6.10"
+
 }
 
 group = "com.proyecto"
@@ -15,6 +16,8 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 repositories {
 	mavenCentral()
 }
+
+
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
