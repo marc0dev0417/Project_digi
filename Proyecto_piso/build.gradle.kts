@@ -1,11 +1,23 @@
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
 	id("org.springframework.boot") version "2.6.5"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
+	id("com.microsoft.azure.azurewebapp") version "1.1.0"
 	kotlin("jvm") version "1.6.10"
 	kotlin("plugin.spring") version "1.6.10"
 	kotlin("plugin.jpa") version "1.6.10"
+
+}
+azurewebapp{
+	subscription = "d6ec0f2c-08d3-4a02-a10f-ab32dc999943"
+	resourceGroup = "server-digi"
+	appName = "serverdigi"
+	pricingTier = "P1v2"
+	region = "Central US"
+
+
 
 }
 
