@@ -136,13 +136,17 @@ class UserServiceImp(
                 user.username = userDTO.username
                 user.mail = userDTO.mail
                 user.address = userDTO.address
-                user.password = BCryptPasswordEncoder().encode(userDTO.password)
 
-               val itemSaved = userRepository.save(user)
+                if(userDTO.password != ""){
+                    user.password = BCryptPasswordEncoder().encode(userDTO.password)
+                    val itemSaved = userRepository.save(user)
+                }else{
+                    val itemSaved = userRepository.save(user)
+                }
 
                 val authentication: Authentication =
                     authenticationManager.authenticate(UsernamePasswordAuthenticationToken(userDTO.username,
-                        userDTO.password))
+                        user.password))
 
                 if (authentication.isAuthenticated) {
 
