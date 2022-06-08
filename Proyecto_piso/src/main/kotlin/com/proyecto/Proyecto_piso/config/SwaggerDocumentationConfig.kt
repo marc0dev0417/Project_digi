@@ -21,7 +21,7 @@ class SwaggerDocumentationConfig {
             .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
             .termsOfServiceUrl("")
             .version("1.0.0")
-            .contact(Contact("Iker Nadal y Marco Benegas","", "marcobenegasdev@outlook.es"))
+            .contact(Contact("Iker Nadal y Marco Benegas","", "digiRenting@gmail.com"))
             .build()
     }
     @Bean
